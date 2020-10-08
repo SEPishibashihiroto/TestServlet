@@ -33,11 +33,11 @@ public class TestServlet extends HttpServlet {
 
 		request.setAttribute("transit", CommonDB.getTransitAll());
 
-		request.setAttribute("transist_data", CommonDB.getTransitDataAll("", "", ""));
+		request.setAttribute("transist_data", CommonDB.getTransitDataAll("", "", "", 1, 0));
 
-		request.setAttribute("count", CommonDB.getTransitDataCnt("", "", ""));
+		request.setAttribute("count", CommonDB.getTransitDataCnt("", "", "", 1));
 
-		request.setAttribute("transist_list", CommonDB.getTransitListAll());
+		request.setAttribute("transist_list", CommonDB.getTransitListAll(1, 0));
 
 		request.setAttribute("user", CommonDB.getUser("ishibashihiroto1196", "test"));
 
