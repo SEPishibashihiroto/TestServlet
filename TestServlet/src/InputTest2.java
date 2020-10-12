@@ -7,7 +7,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import common.CommonAddData;
+import common.CommonDB;
 import common.CommonErrMsg;
+import common.CommonUpdData;
 
 /**
  * Servlet implementation class InputTest2
@@ -29,38 +32,33 @@ public class InputTest2 extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		String day = (String) request.getParameter("day");
-		String route = (String) request.getParameter("route");
-		String transit = (String) request.getParameter("transit");
+		String route_no = (String) request.getParameter("route");
+		String transit_no = (String) request.getParameter("transit");
 		String from_st = (String) request.getParameter("from_st");
 		String to_st = (String) request.getParameter("to_st");
 		String price = (String) request.getParameter("price");
 
+		int user_id = 1;
+
 		request.setAttribute("day", day);
-		request.setAttribute("route", route);
-		request.setAttribute("transit", transit);
+		request.setAttribute("route", route_no);
+		request.setAttribute("transit", transit_no);
 		request.setAttribute("from_st", from_st);
 		request.setAttribute("to_st", to_st);
 		request.setAttribute("price", price);
 
-		String dayErr = CommonErrMsg.getErrMsg("day", day);
-		String routeErr = CommonErrMsg.getErrMsg("route", route);
-		String transitErr = CommonErrMsg.getErrMsg("transit", transit);
-		String from_stErr = CommonErrMsg.getErrMsg("from_st", from_st);
-		String to_stErr = CommonErrMsg.getErrMsg("to_st", to_st);
-		String priceErr = CommonErrMsg.getErrMsg("price", price);
+		CommonUpdData data = new CommonUpdData(68, day, route_no, transit_no, from_st, to_st, price, user_id);
+		CommonAddData data2 = new CommonAddData(day, route_no, transit_no, from_st, to_st, price, user_id);
 
-		request.setAttribute("dayErr", dayErr);
-		request.setAttribute("routeErr", routeErr);
-		request.setAttribute("transitErr", transitErr);
-		request.setAttribute("from_stErr", from_stErr);
-		request.setAttribute("to_stErr", to_stErr);
-		request.setAttribute("priceErr", priceErr);
+		String errmsg = CommonErrMsg.getErrMsg(data);
 
-		if (dayErr.equals("") && routeErr.equals("") && transitErr.equals("") && from_stErr.equals("")
-				&& to_stErr.equals("") && priceErr.equals("")) {
+		if (errmsg.equals("")) {
+			CommonDB.updateDB(data);
 			getServletContext().getRequestDispatcher("/OK.jsp").forward(request, response);
 		} else {
+			request.setAttribute("errmsg", errmsg);
 			getServletContext().getRequestDispatcher("/TestInput2.jsp").forward(request, response);
 		}
 

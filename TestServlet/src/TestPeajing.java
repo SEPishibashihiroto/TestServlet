@@ -7,22 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import common.CommonDB;
-import common.CommonErrMsg;
-
 /**
- * Servlet implementation class TestInput
+ * Servlet implementation class TestPeajing
  */
-@WebServlet("/InputTest1")
-public class InputTest1 extends HttpServlet {
+@WebServlet("/TestPeajing")
+public class TestPeajing extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	CommonErrMsg commonerrmsg;
-	CommonDB commomdb;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public InputTest1() {
+	public TestPeajing() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -32,23 +27,12 @@ public class InputTest1 extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String address;
-		String password;
-		String errmsg;
+		String Page = request.getParameter("Page");
 
-		address = (String) request.getParameter("address");
-		password = (String) request.getParameter("password");
-		errmsg = commonerrmsg.getLoginErr(address, password);
+		//現在のページ
+		int nowPage = Integer.parseInt((Page != null) ? Page : "1");
 
-		request.setAttribute("address", address);
-		request.setAttribute("password", password);
-		request.setAttribute("errmsg", errmsg);
-
-		if (errmsg.equals("")) {
-			getServletContext().getRequestDispatcher("/OK.jsp").forward(request, response);
-		} else {
-			getServletContext().getRequestDispatcher("/TestInput.jsp").forward(request, response);
-		}
+		request.setAttribute("page", nowPage);
 	}
 
 	/**
