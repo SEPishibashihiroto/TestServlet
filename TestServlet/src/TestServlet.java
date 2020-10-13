@@ -32,8 +32,7 @@ public class TestServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setAttribute("text1", CommonDB.getRouteName("1"));
-		request.setAttribute("text2", CommonDB.getTransitName("2"));
+		request.setAttribute("rs", CommonDB.getTransitDataAll("2", "", "", 1, 0));
 
 		getServletContext().getRequestDispatcher("/TestDisplay.jsp").forward(request, response);
 	}

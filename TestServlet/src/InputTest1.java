@@ -38,7 +38,7 @@ public class InputTest1 extends HttpServlet {
 
 		address = (String) request.getParameter("address");
 		password = (String) request.getParameter("password");
-		errmsg = commonerrmsg.getLoginErr(address, password);
+		errmsg = CommonErrMsg.getLoginErr(address, password);
 
 		request.setAttribute("address", address);
 		request.setAttribute("password", password);

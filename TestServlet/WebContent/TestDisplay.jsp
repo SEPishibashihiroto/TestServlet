@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="common.*" import="java.sql.*"%>
 <%
-	String text1 = CommonDB.getRouteName("1");
-	String text2 = CommonDB.getTransitName("2");
+	ResultSet rs = (ResultSet) request.getAttribute("rs");
 %>
 <!DOCTYPE html>
 <html>
@@ -11,9 +10,20 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<p>text1:片道or往復</p>
-	<p><%=text1%></p>
-	<p>text2:交通機関</p>
-	<p><%=text2%></p>
+	<table>
+		<%
+			while (rs.next()) {
+		%>
+		<tr>
+			<td><%=rs.getString("transit_name")%></td>
+			<td><%=rs.getString("from_st")%></td>
+			<td><%=rs.getString("to_st")%></td>
+			<td><%=rs.getInt("price")%></td>
+		</tr>
+		<%
+			}
+		%>
+
+	</table>
 </body>
 </html>
