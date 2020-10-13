@@ -32,6 +32,27 @@ public class CommonDB {
 	}
 
 	/**
+	 *	登録確認、編集確認画面で表示する際に使用
+	 *	片道or往復
+	 **/
+	public static String getRouteName(String route_no) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection connect = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			Statement stmt = connect.createStatement();
+			String getQuery = "SELECT route_name FROM route WHERE route_no = " + route_no + ";";
+			ResultSet rs = stmt.executeQuery(getQuery);
+			rs.next();
+			return rs.getString("route_name");
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
 	 *	登録、編集画面でプルダウンメニュー作成時に使用
 	 *	交通手段
 	 **/
@@ -42,6 +63,27 @@ public class CommonDB {
 			Statement stmt = connect.createStatement();
 			String getQuery = "SELECT * FROM transit ORDER BY transit_no ASC;";
 			return stmt.executeQuery(getQuery);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	/**
+	 *	登録確認、編集確認画面で表示する際に使用
+	 *	交通手段
+	 **/
+	public static String getTransitName(String transit_no) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection connect = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+			Statement stmt = connect.createStatement();
+			String getQuery = "SELECT transit_name FROM transit WHERE transit_no = " + transit_no + ";";
+			ResultSet rs = stmt.executeQuery(getQuery);
+			rs.next();
+			return rs.getString("transit_name");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
@@ -106,12 +148,10 @@ public class CommonDB {
 			Statement stmt = connect.createStatement();
 			String getQuery = "SELECT count(*) AS count "
 					+ "FROM transit_data , transit "
-					+ "WHERE transit_data.transit_no = transit.transit_no "
-					+ "AND transit_data.user_id = " + user_id + " "
+					+ "WHERE transit_data.user_id = " + user_id + " "
 					+ "AND transit_data.transit_no LIKE " + transit_no
 					+ "AND transit_data.from_st LIKE " + from_st
-					+ "AND transit_data.to_st LIKE " + to_st
-					+ "ORDER BY transit_data.data_id ASC;";
+					+ "AND transit_data.to_st LIKE " + to_st + " ;";
 			ResultSet rs = stmt.executeQuery(getQuery);
 			rs.next();
 			return rs.getInt("count");
@@ -137,6 +177,7 @@ public class CommonDB {
 					"WHERE transit_list.route_no = route.route_no " +
 					"AND transit_list.transit_no = transit.transit_no " +
 					"AND transit_list.user_id = " + user_id + " " +
+					"AND transit_list.delete_flg = 0 " +
 					"ORDER BY day ASC " +
 					"LIMIT " + limitSta + " , 10;";
 			return stmt.executeQuery(getQuery);
@@ -157,11 +198,9 @@ public class CommonDB {
 			Connection connect = DriverManager.getConnection(URL, USERNAME, PASSWORD);
 			Statement stmt = connect.createStatement();
 			String getQuery = "SELECT count(*) AS count" +
-					"FROM transit_list,route,transit " +
-					"WHERE transit_list.route_no = route.route_no " +
-					"AND transit_list.transit_no = transit.transit_no " +
-					"AND transit_list.user_id = " + user_id + " " +
-					"ORDER BY day ASC;";
+					"FROM transit_list " +
+					"WHERE user_id = " + user_id + " " +
+					"AND delete_flg = 0 " + " ;";
 			ResultSet rs = stmt.executeQuery(getQuery);
 			rs.next();
 			return rs.getInt("count");
@@ -332,7 +371,6 @@ public class CommonDB {
 					+ "', route_no = '" + data.getRoute_no() + "', transit_no = '" + data.getTransit_no()
 					+ "', from_st = '" + data.getFrom_st() + "', to_st = '" + data.getTo_st()
 					+ "', price = '" + data.getPrice() + "' WHERE id = " + data.getId();
-
 			stmt.executeUpdate(UpdQuery);
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -355,7 +393,6 @@ public class CommonDB {
 		} catch (ClassNotFoundException | SQLException e) {
 			e.printStackTrace();
 		}
-
 	}
 
 }
