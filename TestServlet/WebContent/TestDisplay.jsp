@@ -10,20 +10,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<table>
-		<%
-			while (rs.next()) {
-		%>
-		<tr>
-			<td><%=rs.getString("transit_name")%></td>
-			<td><%=rs.getString("from_st")%></td>
-			<td><%=rs.getString("to_st")%></td>
-			<td><%=rs.getInt("price")%></td>
-		</tr>
-		<%
-			}
-		%>
-
-	</table>
+	<%=request.getAttribute("listCnt")%>
 </body>
 </html>

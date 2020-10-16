@@ -27,12 +27,14 @@ public class TestPeajing extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String Page = request.getParameter("Page");
+		String Page = request.getParameter("page");
 
 		//現在のページ
 		int nowPage = Integer.parseInt((Page != null) ? Page : "1");
 
 		request.setAttribute("page", nowPage);
+
+		getServletContext().getRequestDispatcher("/TestPage.jsp").forward(request, response);
 	}
 
 	/**

@@ -32,7 +32,7 @@ public class TestServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setAttribute("rs", CommonDB.getTransitDataAll("2", "", "", 1, 0));
+		request.setAttribute("listCnt", CommonDB.getTransitListCnt(1));
 
 		getServletContext().getRequestDispatcher("/TestDisplay.jsp").forward(request, response);
 	}
