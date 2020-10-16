@@ -4,7 +4,7 @@ public class CommonErrMsg {
 
 	/**
 	 * 	ログイン画面で使用
-	 *	入力データのエラーチェック
+	 * 	入力データのエラーチェック
 	 **/
 	public static String getLoginErr(String address, String password) {
 		if (isBytes(address)) {
@@ -20,6 +20,10 @@ public class CommonErrMsg {
 		return address.equals("") || password.equals("") ? "メールアドレスもしくはパスワードが入力されていません。" : "";
 	}
 
+	/**
+	 * 	ログイン画面で使用
+	 * 	入力データのパスワードチェック
+	 **/
 	public static String getLoginErr(String loginKey) {
 		try {
 			return CommonDB.isUser(loginKey) ? "" : "メールアドレスもしくはパスワードが間違っています。";
@@ -54,9 +58,10 @@ public class CommonErrMsg {
 		if (!data.getPrice().equals("")) {
 			if (!(data.getPrice().matches("[0-9]+"))) {
 				errmsg += "金額は数値で入力してください<br>";
+			} else if (stringDigits(data.getPrice()) > 9) {
+				errmsg += "金額は9桁以内で入力してください<br>";
 			}
 		}
-
 		return errmsg;
 	}
 

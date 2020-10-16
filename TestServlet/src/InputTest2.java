@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import common.CommonAddData;
-import common.CommonDB;
 import common.CommonErrMsg;
 import common.CommonUpdData;
 
@@ -55,11 +54,7 @@ public class InputTest2 extends HttpServlet {
 		String errmsg = CommonErrMsg.getErrMsg(data);
 
 		if (errmsg.equals("")) {
-			if (!(CommonDB.checkTransitData(transit_no, from_st, to_st, price, user_id))) {
-				CommonDB.addTransitData(transit_no, from_st, to_st, price, user_id);
-				System.out.println("交通手段が新しく追加されました");
-				getServletContext().getRequestDispatcher("/OK.jsp").forward(request, response);
-			}
+			getServletContext().getRequestDispatcher("/OK.jsp").forward(request, response);
 		} else {
 			request.setAttribute("errmsg", errmsg);
 			getServletContext().getRequestDispatcher("/TestInput2.jsp").forward(request, response);
