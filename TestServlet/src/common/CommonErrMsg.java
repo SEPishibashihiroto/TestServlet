@@ -7,17 +7,21 @@ public class CommonErrMsg {
 	 * 	入力データのエラーチェック
 	 **/
 	public static String getLoginErr(String address, String password) {
+		String errmsg = "";
+		if (address.isEmpty() || password.isEmpty()) {
+			return errmsg += "メールアドレスもしくはパスワードが入力されていません。<br>";
+		}
 		if (isBytes(address)) {
-			return "メールアドレスに全角を使用しないでください";
+			errmsg += "メールアドレスに全角を使用しないでください<br>";
 		} else if (stringDigits(address) > 254) {
-			return "メールアドレスは半角254文字以内で入力してください";
+			errmsg += "メールアドレスは半角254文字以内で入力してください<br>";
 		}
 		if (isBytes(password)) {
-			return "パスワードに全角を使用しないでください";
+			errmsg += "パスワードに全角を使用しないでください<br>";
 		} else if (stringDigits(password) > 16) {
-			return "メールアドレスは半角16文字以内で入力してください";
+			errmsg += "パスワードは半角16文字以内で入力してください<br>";
 		}
-		return address.equals("") || password.equals("") ? "メールアドレスもしくはパスワードが入力されていません。" : "";
+		return errmsg;
 	}
 
 	/**
@@ -38,16 +42,14 @@ public class CommonErrMsg {
 	 **/
 	public static String getErrMsg(CommonAddData data) {
 		String errmsg = "";
-		if (data.getDay().equals("")) {
+		if (data.getDay().isEmpty()) {
 			errmsg += "日付は必須項目です<br>";
-		} else if (!(data.getDay().matches("^[0-9]{4}/[0-9]{2}/[0-9]{2}$") && chackDayData(data.getDay()))) {
-			errmsg += "日付は「yyyy/mm/dd」の形式で入力してください<br>";
-		}
-		if (data.getRoute_no().equals("")) {
-			errmsg += "片道or往復は必須項目です<br>";
-		}
-		if (data.getTransit_no().equals("")) {
-			errmsg += "交通機関は必須項目です<br>";
+		} else if (!(data.getDay().matches("^[0-9]{4}/[0-9]{2}/[0-9]{2}$"))) {
+			if (!(chackDayData(data.getDay()))) {
+				errmsg += "日付を正式な範囲で入力してください<br>";
+			} else {
+				errmsg += "日付は「yyyy/mm/dd」の形式で入力してください<br>";
+			}
 		}
 		if (stringDigits(data.getFrom_st()) > 20) {
 			errmsg += "出発駅は全角10文字以内で入力してください<br>";
@@ -55,7 +57,7 @@ public class CommonErrMsg {
 		if (stringDigits(data.getTo_st()) > 20) {
 			errmsg += "到着駅は全角10文字以内で入力してください<br>";
 		}
-		if (!data.getPrice().equals("")) {
+		if (!data.getPrice().isEmpty()) {
 			if (!(data.getPrice().matches("[0-9]+"))) {
 				errmsg += "金額は数値で入力してください<br>";
 			} else if (stringDigits(data.getPrice()) > 9) {

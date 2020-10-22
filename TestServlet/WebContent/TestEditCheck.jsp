@@ -1,13 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="common.*" import="java.sql.*"%>
 <%
-	//使用する変数の宣言、初期値の設定
 	CommonUpdData data = (CommonUpdData) request.getAttribute("data");
 
 	String route_name = CommonDB.getRouteName(data.getRoute_no());
 	String transit_name = CommonDB.getTransitName(data.getTransit_no());
-
-	//Edit.javaで作成したアップデートデータクラスをセッションに追加
 	request.getSession().setAttribute("upddata", data);
 %>
 <!DOCTYPE html>
@@ -15,18 +12,11 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="./css/editCheck.css">
-<title>交通費登録システム：編集確認</title>
+<title>TestEditCheck</title>
 </head>
 <body>
-	<h2>交通費登録システム：編集画面</h2>
-	<%
-		/*
-		入力された値を表示
-		プルダウンメニューから取得された値は、
-		CommonDB.getRouteName(getTransitName)を使用して各値名を取得
-		*/
-	%>
-	<form action="./EditCheck" class="table">
+	<h2>TestEditCheck</h2>
+	<form action="./TestEditCheckSavlet" class="table">
 		<table>
 			<tr>
 				<th>日付</th>
@@ -71,7 +61,7 @@
 			<input type="submit" value="編集" class="leftbtn btn">
 		</div>
 		<div>
-			<input type="submit" value="戻る" formaction="./edit.jsp"
+			<input type="submit" value="戻る" formaction="./TestEdit.jsp"
 				class="rightbtn btn">
 		</div>
 

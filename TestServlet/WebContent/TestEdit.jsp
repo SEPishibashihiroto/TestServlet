@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8" import="common.CommonDB" import="java.sql.*"%>
 <%
-	//使用する変数の宣言、初期値設定(List,transitDataList)
 	String id = request.getParameter("id") == null ? "" : request.getParameter("id");
 	String day = (String) request.getParameter("day") == null ? "" : request.getParameter("day");
 	String route_name = (String) request.getParameter("route_name") == null ? ""
@@ -13,14 +12,8 @@
 	String from_st = (String) request.getParameter("from_st") == null ? "" : request.getParameter("from_st");
 	String to_st = (String) request.getParameter("to_st") == null ? "" : request.getParameter("to_st");
 	String price = (String) request.getParameter("price") == null ? "" : request.getParameter("price");
-	String menulist = (String) request.getParameter("menulist") == null ? "2"
-			: (String) request.getParameter("menulist");
-
-	//使用する変数の宣言、初期値設定(Edit)
 	String errmsg = (String) request.getAttribute("errmsg") == null ? ""
 			: (String) request.getAttribute("errmsg");
-
-	//使用する変数の宣言、初期値設定(プルダウンメニュー作成)
 	ResultSet route_rs = CommonDB.getRouteAll();
 	ResultSet transit_rs = CommonDB.getTransitAll();
 %>
@@ -37,21 +30,13 @@
 
 	<div>
 		<%
-			//入力された値に対してエラーがあればエラー文を表示する
 			if (!(errmsg.equals(""))) {
-		%>
-		<%=errmsg%>
-		<%
-			} else {
+				errmsg.toString();
 			}
 		%>
 	</div>
 
-
-	<%
-		//一覧表示に表示されていた値をinputの中へうめこむ
-	%>
-	<form action="./Edit" class="table">
+	<form action="./TestEditSavlet" class="table">
 		<table>
 			<tr>
 				<th>日付</th>
@@ -80,9 +65,9 @@
 			<tr>
 				<th></th>
 				<th></th>
-				<td><input type="hidden" name="menulist" value="<%=menulist%>">
-					<input type="submit" formaction="./TransitdataList"
-					value="以前のデータを参照" class="btn"></td>
+				<td><input type="hidden" name="menulist" value="2"> <input
+					type="submit" formaction="./TransitdataList" value="以前のデータを参照"
+					class="btn"></td>
 			</tr>
 			<tr>
 				<th>交通機関</th>
@@ -118,17 +103,14 @@
 				<td><input type="text" name="price" value="<%=price%>"></td>
 			</tr>
 		</table>
-		<br>
-
-		<input type="hidden" name="id" value="<%=id%>">
+		<br> <input type="hidden" name="id" value="<%=id%>">
 		<div>
 			<input type="submit" value="確認" class="leftbtn btn">
 		</div>
 
 	</form>
 	<div>
-		<!-- 一覧表示へ戻る -->
-		<form action="./List">
+		<form action="./TestListSavlet">
 			<input type="submit" value="戻る" class="rightbtn btn">
 		</form>
 	</div>

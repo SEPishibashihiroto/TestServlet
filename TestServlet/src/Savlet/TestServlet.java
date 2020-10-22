@@ -1,3 +1,4 @@
+package Savlet;
 
 import java.io.IOException;
 
@@ -32,7 +33,7 @@ public class TestServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		request.setAttribute("listCnt", CommonDB.getTransitListCnt(1));
+		request.setAttribute("rs", CommonDB.getUser("harashinya1192"));
 
 		getServletContext().getRequestDispatcher("/TestDisplay.jsp").forward(request, response);
 	}

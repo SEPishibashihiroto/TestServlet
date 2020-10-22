@@ -1,3 +1,5 @@
+package Savlet;
+
 
 import java.io.IOException;
 
@@ -7,59 +9,52 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import common.CommonAddData;
 import common.CommonErrMsg;
 import common.CommonUpdData;
 
 /**
  * Servlet implementation class InputTest2
  */
-@WebServlet("/InputTest2")
-public class InputTest2 extends HttpServlet {
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public InputTest2() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+@WebServlet("TestEditSavlet")
+public class TestEditSavlet extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		//ユーザーidの取得
+		int user_id = (int) request.getSession().getAttribute("User_id");
 
+		//入力値の取得
+		int id = Integer.parseInt((String) request.getParameter("id"));
 		String day = (String) request.getParameter("day");
-		String route_no = (String) request.getParameter("route");
-		String transit_no = (String) request.getParameter("transit");
+		String route_no = (String) request.getParameter("route_no");
+		String transit_no = (String) request.getParameter("transit_no");
 		String from_st = (String) request.getParameter("from_st");
 		String to_st = (String) request.getParameter("to_st");
 		String price = (String) request.getParameter("price");
 
-		int user_id = 1;
-
-		request.setAttribute("day", day);
-		request.setAttribute("route", route_no);
-		request.setAttribute("transit", transit_no);
-		request.setAttribute("from_st", from_st);
-		request.setAttribute("to_st", to_st);
-		request.setAttribute("price", price);
-
-		CommonUpdData data = new CommonUpdData(68, day, route_no, transit_no, from_st, to_st, price, user_id);
-		CommonAddData data2 = new CommonAddData(day, route_no, transit_no, from_st, to_st, price, user_id);
-
+		//アップデートデータクラスの作成
+		CommonUpdData data = new CommonUpdData(id, day, route_no, transit_no, from_st, to_st, price, user_id);
+		//入力値にエラーが含まれていないかを調べる
 		String errmsg = CommonErrMsg.getErrMsg(data);
 
-		if (errmsg.equals("")) {
-			getServletContext().getRequestDispatcher("/OK.jsp").forward(request, response);
+		/**
+		 * エラーがない
+		 * 		→編集確認画面へ遷移
+		 * 		  その時にアップデートデータクラスも持っていく
+		 * エラーがある
+		 * 		→編集画面へ遷移
+		 * 		  その時にエラーメッセージも持っていく
+		 **/
+		if (errmsg.isEmpty()) {
+			request.setAttribute("data", data);
+			getServletContext().getRequestDispatcher("/TestEditCheck.jsp").forward(request, response);
 		} else {
 			request.setAttribute("errmsg", errmsg);
-			getServletContext().getRequestDispatcher("/TestInput2.jsp").forward(request, response);
+			getServletContext().getRequestDispatcher("/TestEdit.jsp").forward(request, response);
 		}
-
 	}
 
 	/**
@@ -67,7 +62,6 @@ public class InputTest2 extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
