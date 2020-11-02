@@ -1,14 +1,22 @@
 package common;
 
 public class CommonAddData {
-	private String day;
-	private String route_no;
-	private String transit_no;
-	private String from_st;
-	private String to_st;
-	private String price;
-	private int user_id;
+	/**
+	 *	クラス外から値を参照させないために
+	 *	修飾子を全てprivateにする
+	 **/
+	private final String day;
+	private final String route_no;
+	private final String transit_no;
+	private final String from_st;
+	private final String to_st;
+	private final String price;
+	private final int user_id;
 
+	/**
+	 *	値をセットするのは、
+	 *	インスタンスを生成したときのみとする
+	 **/
 	public CommonAddData(String day, String route_no, String transit_no,
 			String from_st, String to_st, String price, int user_id) {
 		this.day = day;
@@ -20,6 +28,10 @@ public class CommonAddData {
 		this.user_id = user_id;
 	}
 
+	/**
+	 *	各フィールドのゲッター
+	 *	値を取り出す際に使用
+	 **/
 	public String getDay() {
 		return day;
 	}
