@@ -128,6 +128,37 @@ public class CommonDB {
 	}
 
 	/**
+	 *	交通手段編集画面で使用
+	 **/
+	public static void updateTransitData(String data_id, String transit_no, String from_st, String to_st, String price,
+			int user_id) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			String UpdQuery = "UPDATE transit_data SET transit_no = '" + transit_no
+					+ "', from_st = '" + from_st + "', to_st = '" + to_st
+					+ "', price = '" + price.replace(",", "") + "' WHERE data_id = " + data_id + ";";
+			DriverManager.getConnection(URL, USERNAME, PASSWORD).createStatement().executeUpdate(UpdQuery);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 *	交通手段削除画面で使用
+	 **/
+	public static void deleteTransitData(int data_id) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			String DelQuery = "UPDATE transit_data SET delete_flg = '1' WHERE data_id = " + data_id + ";";
+			DriverManager.getConnection(URL, USERNAME, PASSWORD).createStatement().executeUpdate(DelQuery);
+		} catch (ClassNotFoundException | SQLException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
 	 *	交通手段一覧画面から使用
 	 *	交通機関、出発駅、到着駅を受け取り、LIKE句をかけて絞り込む
 	 **/

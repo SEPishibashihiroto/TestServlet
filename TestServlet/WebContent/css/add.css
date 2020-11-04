@@ -1,71 +1,63 @@
 @charset "UTF-8";
 
-body{
+body {
 	/* ページ全体のフォント */
 	/*font-family: "游ゴシック" ;*/
-
 	/* ページ幅*/
-	width:960px;
+	width: 960px;
 }
 
-
 table th {
-
 	/* 見出し */
 	text-align: right;
 }
 
-
-.to{
-
+.to {
 	/* 見出し 確認 to */
 	padding-left: 50px;
 }
 
-.addlist{
-
+.addlist {
 	/* 配置 */
-	padding:10px 100px;
+	padding: 10px 100px;
 }
 
-.addlist dl dt{
-
+.addlist dl dt {
 	/* padding:10px 0; */
-	float:left;
+	float: left;
 	/* clear:both; */
-	text-align:right;
+	text-align: right;
 }
 
-
-
-.transitdatabt{
-
+.transitdatabt {
 	/* 交通手段 ボタン */
-	text-decoration:none;
-    border:1px solid #333;
-    background-color: #fff;
+	text-decoration: none;
+	border: 1px solid #333;
+	background-color: #fff;
 }
 
-
-
-
-.transitionbt{
-
+.transitionbt {
 	/* ページ遷移 ボタン */
-	width:200px;
-    text-decoration:none;
-    border:1px solid #333;
-    background-color: #fff;
+	width: 200px;
+	text-decoration: none;
+	border: 1px solid #333;
+	background-color: #fff;
+}
 
+.transition {
 
 }
 
-
-
-.transition{
-
+.err {
+	padding: 0px 100px;
 }
 
-.err{
-	padding:0px 100px;
+.leftbtn {
+	width: 200px;
+	float: left;
+}
+
+.retuern {
+	float: right;
+	margin-right: 280px;
 }

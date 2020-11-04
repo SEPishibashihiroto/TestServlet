@@ -143,17 +143,17 @@
  	}
  %>
 				</td>
-			<tr><th></th><td>※金額は片道分のみ。</td></tr>
+			<tr>
+				<th></th>
+				<td>※金額は片道分のみ。</td>
+			</tr>
 
 		</table>
-
-
-
-		<br> <br> <input class="transitionbt" type="submit"
+		<br> <br> <input class="transitionbt leftbtn" type="submit"
 			formaction="Add" value="確認">
-		<button class="transitionbt" type="submit" formaction="List"
-			formmethod="get">戻る</button>
-
+	</form>
+	<form action="List" class="retuern">
+		<button class="transitionbt" type="submit" formmethod="get">戻る</button>
 	</form>
 </body>
 </html>

@@ -49,6 +49,12 @@
 					<input type="submit" value="Excelへ出力" class="btn">
 				</form>
 			</td>
+			<td>
+				<form action="TransitdataList" method="get">
+					<input type="hidden" name="menulist" value="3">
+					<input type="submit" value="交通手段一覧へ" class="btn">
+				</form>
+			</td>
 		</tr>
 	</table>
 	<br>
@@ -162,8 +168,9 @@
 						value="<%=nf.format(Price)%>">
 					</td>
 
-					<td><input type="submit" value="編集" formaction="edit.jsp" class="tbtn"><input
-						type="submit" value="削除" formaction="Delete.jsp" class="tbtn"></td>
+					<td><input type="submit" value="編集" formaction="edit.jsp"
+						class="tbtn"><input type="submit" value="削除"
+						formaction="Delete.jsp" class="tbtn"></td>
 				</tr>
 			</form>
 			<%
