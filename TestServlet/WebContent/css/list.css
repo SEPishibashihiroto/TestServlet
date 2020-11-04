@@ -1,58 +1,67 @@
-
 @charset "UTF-8";
 
-
 body {
-
-
-  /* ページ幅*/
-	width:960px;
+	/* ページ幅*/
+	width: 960px;
 }
+
 .table1 {
 	border-collapse: collapse;
-	margin-left:18%;
-	width:800px;
+	margin-left: 18%;
+	width: 800px;
 	text-align: center;
+}
+
+.table1 td {
 	border: solid 1px black;
 }
 
-.td {
-	/* padding: 0px 0px; */
+.btn {
+	height: 25px;
+	width: 200px;
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	background-color: #fff;
 }
 
-.tr1{
-	border: solid 1px black;
-}
-
-.tr2{
-	border: solid 1px black;
-}
-
-.td1 {
-	border: solid 1px black;
-
+.tbtn {
+	width: 50%;
+	text-align: center;
+	background-color: #fff;
 }
 
 .page {
-	margin-left:18%;
-
+	margin-left: 18%;
 }
 
-.excel {
-	margin-left:18%;
+.page ul {
+	padding: 0;
+	margin-top: 10px;
+	margin-bottom: 0;
+}
+
+.page ul li {
+	display: inline;
+	margin-right: 10px;
+}
+
+.topmenue {
+	margin-left: 18%;
+	width: 800px;
+}
+
+.topmenue ul {
+	padding: 0;
+	margin-top: 10px;
+	margin-bottom: 0;
+}
+
+.topmenue ul li {
+	display: inline;
+	margin-right: 10px;
 }
 
 .newbtn {
-	margin-left:18%;
-}
-
-.userbtn{
-	margin-left:18%;
-}
-.btn {
-	height:25px;
-	width:200px;
-}
-.btn1{
-	width:50%;
+	margin-left: 18%;
 }
