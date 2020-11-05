@@ -23,15 +23,7 @@ h2 {
 
 }
 
-.tr1 {
-	border: solid 1px black;
-}
-
-.tr2 {
-	border: solid 1px black;
-}
-
-.td1 {
+.tr1, .tr2, .td1 {
 	border: solid 1px black;
 }
 
