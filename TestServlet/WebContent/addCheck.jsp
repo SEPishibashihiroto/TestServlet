@@ -1,21 +1,34 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8" import="java.text.NumberFormat" import="common.*"%>
+    pageEncoding="UTF-8" import="java.text.NumberFormat"%>
 
 <%
-	/** 登録か編集かの判断値**/
-	String menulist = (String) request.getAttribute("menulist");
+/** 登録か編集かの判断値**/
+String menulist=(String)request.getAttribute("menulist");
 
-	CommonAddData data = (CommonAddData) request.getAttribute("data");
+/** もし値の受け渡しがある場合用**/
+//日付
+String day=(String) request.getAttribute("day");
+//片道or往復
+String route_no=(String) request.getAttribute("route_no");
+String route_name=(String) request.getAttribute("route_name");
+//交通機関
+String transit_no=(String)request.getAttribute("transit_no");
+String transit_name=(String)request.getAttribute("transit_name");
+//出発駅
+String from_st=(String)request.getAttribute("from_st");
+//到着駅
+String to_st=(String)request.getAttribute("to_st");
+//金額
+String price=(String)request.getAttribute("price");
 
-	/** 金額 処理変更**/
-	int Price = (data.getPrice().isEmpty()) ? 0 : Integer.parseInt(data.getPrice());
-
-	String route_name = CommonDB.getRouteName(data.getRoute_no());
-	String transit_name = CommonDB.getTransitName(data.getTransit_no());
-
-	NumberFormat nf = NumberFormat.getNumberInstance();
-
-	request.getSession().setAttribute("data", data);
+/** 金額 処理変更**/
+int Price=0;
+if(price.isEmpty()){
+price="0";
+}else{
+	Price=Integer.parseInt(price);
+}
+NumberFormat nf = NumberFormat.getNumberInstance();
 %>
 <!DOCTYPE html>
 <html>
@@ -25,61 +38,63 @@
 <title>登録確認</title>
 </head>
 <body>
-	<h2>交通費登録システム：登録</h2>
+<h2>交通費登録システム：登録</h2>
 
-	<form class="addlist" method="post">
+<form class="addlist"  method="post">
 
-		<table>
-			<tr>
-				<th>日付：</th>
-				<td><%=data.getDay()%></td>
-			</tr>
+<table>
+<tr>
+<th>日付：</th>
+<td><%=day%></td>
+</tr>
 
-			<tr>
-				<th>片道or往復：</th>
-				<td><%=route_name%></td>
-			</tr>
+<tr>
+<th>片道or往復：</th>
+<td><%=route_name%></td>
+</tr>
 
-			<tr>
-				<th>交通機関：</th>
-				<td><%=transit_name%></td>
-			</tr>
+<tr>
+<th>交通機関：</th>
+<td><%=transit_name%></td>
+</tr>
 
-			<tr>
-				<th>出発駅：</th>
-				<td><%=data.getFrom_st()%></td>
-				<th class="to">―到着駅：</th>
-				<td><%=data.getTo_st()%></td>
-			</tr>
+<tr>
+<th>出発駅：</th>
+<td><%=from_st%></td>
+<th class="to">―到着駅：</th>
+<td><%=to_st%></td>
+</tr>
 
-			<tr>
-				<th>金額：</th>
-				<td>
-					<%
-						if (Price == 0) {
-					%> <%=Price%> <%
- 	} else {
- %> <%=nf.format(data.getRoute_no().equals("1") ? Price : Price * 2)%> <%
- 	}
- %> 円
-				</td>
-			</tr>
+<tr>
+<th>金額：</th>
+<td><%if(Price==0){%>
+<%=price %>
+<%}else{ %>
+<%=nf.format(route_no.equals("1")?Price:Price*2)%>
+<%
+}
+%>
+円</td>
+</tr>
 
-		</table>
+</table>
 
-		<br>
-		<!-- hidden用 -->
-		<input type="hidden" name="menulist" value="<%=menulist%>"> <input
-			type="hidden" name="day" value="<%=data.getDay()%>"> <input
-			type="hidden" name="route_no" value="<%=data.getRoute_no()%>">
-		<input type="hidden" name="transit_no"
-			value="<%=data.getTransit_no()%>"> <input type="hidden"
-			name="from_st" value="<%=data.getFrom_st()%>"> <input
-			type="hidden" name="to_st" value="<%=data.getTo_st()%>"> <input
-			type="hidden" name="price" value="<%=data.getPrice()%>"> <input
-			class="transitionbt" type="submit" formaction="AddCheck" value="登録">
-		<input class="transitionbt" type="submit" formaction="Add"
-			formmethod="get" value="戻る">
-	</form>
+<br>
+<!-- hidden用 -->
+<input type="hidden" name="menulist" value="<%=menulist%>">
+<input type="hidden" name="day" value="<%=day%>">
+<input type="hidden" name="route_no" value="<%=route_no%>">
+<input type="hidden" name="transit_no" value="<%=transit_no%>">
+<input type="hidden" name="from_st" value="<%=from_st%>">
+<input type="hidden" name="to_st" value="<%=to_st%>">
+<input type="hidden" name="price" value="<%=price%>">
+
+<dt>&nbsp;</dt>
+<dd>
+<input class="transitionbt" type="submit" formaction="AddCheck" value="登録">
+<input class="transitionbt" type="submit" formaction="Add" formmethod="get" value="戻る">
+</dd>
+
+</form>
 </body>
 </html>

@@ -113,6 +113,7 @@ public class Add extends HttpServlet {
 		CommonAddData data = new CommonAddData(day, route_no, transit_no, from_st, to_st, price, user_id);
 		String errmsg = CommonErrMsg.getErrMsg(data);
 
+
 		request.setAttribute("menulist", menulist);
 
 		request.setAttribute("day", day);
@@ -125,7 +126,13 @@ public class Add extends HttpServlet {
 		//行先
 		if(errmsg.isEmpty()) {
 
-			request.setAttribute("data", data);
+
+			/** DBの取得 **/
+			String route_name=CommonDB.getRouteName(route_no);
+			String transit_name=CommonDB.getTransitName(transit_no);
+
+			request.setAttribute("route_name", route_name);
+			request.setAttribute("transit_name", transit_name);
 
 			RequestDispatcher rd =
             		request.getRequestDispatcher("/addCheck.jsp");

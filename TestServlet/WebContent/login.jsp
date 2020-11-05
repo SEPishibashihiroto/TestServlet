@@ -17,11 +17,11 @@
 		<table>
 			<tr>
 				<th>メールアドレス:</th>
-				<td><input type="text" name="address" class="address" value="harashinya1192"></td>
+				<td><input type="text" name="address" class="address"></td>
 			</tr>
 			<tr>
 				<th>パスワード:</th>
-				<td><input type="password" name="password" class="pass" value="hara1192"></td>
+				<td><input type="password" name="password" class="pass"></td>
 			</tr>
 			<tr>
 				<th></th>
